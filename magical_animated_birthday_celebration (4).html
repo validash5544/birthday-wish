@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday to You — Magical Birthday Cake</title>
+    <!-- Elegant Display & Friendly Rounded Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* Soft, dreamy twilight-pastel gradient background */
+            background: linear-gradient(160deg, #1d1138 0%, #2d1650 38%, #471d5e 72%, #24103a 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Magical Golden, Pink & Blue Ambient Night-Sky Auras */
+        .ambient-aura {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(75px);
+            z-index: 0;
+            opacity: 0.52;
+            animation: auraFloat 9s ease-in-out infinite alternate;
+        }
+
+        .aura-pink {
+            width: 55vmin;
+            height: 55vmin;
+            top: 10%;
+            left: 16%;
+            background: radial-gradient(circle, rgba(255, 77, 166, 0.40) 0%, transparent 70%);
+        }
+
+        .aura-gold {
+            width: 60vmin;
+            height: 60vmin;
+            bottom: 8%;
+            right: 14%;
+            background: radial-gradient(circle, rgba(255, 200, 87, 0.34) 0%, transparent 70%);
+            animation-delay: -3.5s;
+        }
+
+        .aura-blue {
+            width: 52vmin;
+            height: 52vmin;
+            top: 38%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.28) 0%, transparent 72%);
+            animation-delay: -6s;
+        }
+
+        @keyframes auraFloat {
+            0% { transform: translate(0, 0) scale(0.95); opacity: 0.45; }
+            100% { transform: translate(18px, -22px) scale(1.12); opacity: 0.72; }
+        }
+
+        /* Fullscreen Canvas for Falling Stars & Golden Sparkles */
+        #magic-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 12;
+        }
+
+        /* Sky Layer for Smooth, Relaxed Falling Tiny Magical Text Rain Across Full Screen */
+        #falling-sky-text {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 4;
+        }
+
+        .tiny-text-particle {
+            position: absolute;
+            top: -8vh;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            white-space: nowrap;
+            color: var(--t-color, #ffd166);
+            text-shadow:
+                0 0 6px var(--t-glow, rgba(255, 209, 102, 0.85)),
+                0 0 14px var(--t-glow, rgba(255, 110, 199, 0.55));
+            will-change: transform, opacity;
+            animation: tinyTextRain linear infinite;
+        }
+
+        @keyframes tinyTextRain {
+            0% {
+                transform: translate3d(0, -8vh, 0) rotate(var(--rot-start, -3deg));
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--t-opacity, 0.75);
+            }
+            90% {
+                opacity: var(--t-opacity, 0.75);
+            }
+            100% {
+                transform: translate3d(var(--drift-x, 20px), 114vh, 0) rotate(var(--rot-end, 3deg));
+                opacity: 0;
+            }
+        }
+
+        /* Main Stage Container — Centered Cake */
+        .stage {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: clamp(72px, 12vh, 110px) 16px clamp(20px, 4vh, 36px);
+            z-index: 6;
+        }
+
+        /* Realistic Three-Tier Cake Assembly */
+        .cake-assembly {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            transform-origin: center center;
+        }
+
+        /* Warm Candlelight Halo behind Cake Top */
+        .candlelight-halo {
+            position: absolute;
+            top: -68px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.4);
+            width: 360px;
+            height: 230px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 214, 102, 0.45) 0%, rgba(255, 105, 180, 0.2) 45%, transparent 72%);
+            filter: blur(24px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+            z-index: 1;
+        }
+
+        .candlelight-halo.lit {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            animation: haloPulse 2.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes haloPulse {
+            0% { transform: translateX(-50%) scale(0.96); opacity: 0.82; }
+            100% { transform: translateX(-50%) scale(1.06); opacity: 1; }
+        }
+
+        /* Candles Container */
+        .candles-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 34px;
+            margin-bottom: -6px;
+            z-index: 15;
+        }
+
+        .candle {
+            position: relative;
+            width: 14px;
+            height: 58px;
+            border-radius: 6px 6px 2px 2px;
+            opacity: 0;
+            transform: translateY(-22px) scaleY(0.35);
+            transform-origin: bottom center;
+            transition: transform 0.95s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.65s ease;
+            box-shadow:
+                inset -4px 0 7px rgba(45, 15, 35, 0.38),
+                inset 3px 0 5px rgba(255, 255, 255, 0.55),
+                0 5px 12px rgba(0, 0, 0, 0.45);
+        }
+
+        .candle::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -1px;
+            right: -1px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 250, 240, 0.9);
+        }
+
+        .candle.appear {
+            opacity: 1;
+            transform: translateY(0) scaleY(1);
+        }
+
+        .candle-1 {
+            background: repeating-linear-gradient(
+                -45deg,
+                #fff8fa,
+                #fff8fa 6px,
+                #f43f5e 6px,
+                #f43f5e 12px
+            );
+        }
+
+        .candle-2 {
+            height: 66px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #fffbeb,
+                #fffbeb 6px,
+                #eab308 6px,
+                #eab308 12px
+            );
+        }
+
+        .candle-3 {
+            background: repeating-linear-gradient(
+                -45deg,
+                #f5f3ff,
+                #f5f3ff 6px,
+                #8b5cf6 6px,
+                #8b5cf6 12px
+            );
+        }
+
+        /* Candle Wick */
+        .wick {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2.5px;
+            height: 9px;
+            background: linear-gradient(180deg, #ff9e44 0%, #271811 65%);
+            border-radius: 2px;
+        }
+
+        /* Natural Flickering Flame */
+        .flame-wrapper {
+            position: absolute;
+            top: -38px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transform-origin: bottom center;
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .flame-wrapper.ignited {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .flame-outer {
+            width: 17px;
+            height: 31px;
+            background: radial-gradient(ellipse at 50% 80%, #ffffff 0%, #fef08a 32%, #f59e0b 72%, rgba(239, 68, 68, 0.85) 100%);
+            border-radius: 50% 50% 50% 50% / 68% 68% 32% 32%;
+            box-shadow:
+                0 0 12px 3px rgba(254, 240, 138, 0.95),
+                0 0 28px 9px rgba(245, 158, 11, 0.7),
+                0 0 48px 15px rgba(255, 77, 166, 0.35);
+            transform-origin: bottom center;
+            animation: flameNaturalFlicker 0.9s ease-in-out infinite alternate;
+        }
+
+        .flame-blue-base {
+            position: absolute;
+            bottom: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 9px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(96, 165, 250, 0.75);
+            filter: blur(1px);
+        }
+
+        .flame-inner {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6.5px;
+            height: 15px;
+            background: #ffffff;
+            border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+            filter: blur(0.4px);
+        }
+
+        .candle-2 .flame-outer { animation-delay: -0.28s; animation-duration: 0.82s; }
+        .candle-3 .flame-outer { animation-delay: -0.55s; animation-duration: 0.98s; }
+
+        @keyframes flameNaturalFlicker {
+            0% {
+                transform: scale(0.95, 1.03) rotate(-3deg) skewX(-2deg);
+            }
+            35% {
+                transform: scale(1.03, 0.97) rotate(1.8deg) skewX(1.5deg);
+            }
+            70% {
+                transform: scale(0.97, 1.04) rotate(-1.5deg) skewX(-1.0deg);
+            }
+            100% {
+                transform: scale(1.02, 0.98) rotate(3deg) skewX(2deg);
+            }
+        }
+
+        /* Realistic 3D Cylinder Tiers Forming Gradually Bottom to Top */
+        .cake-tier {
+            position: relative;
+            border-radius: 50% / 16px;
+            opacity: 0;
+            filter: blur(8px) brightness(1.6);
+            transform: scale(0.7) translateY(20px);
+            transform-origin: bottom center;
+            transition:
+                opacity 1.6s ease-out,
+                filter 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 209, 102, 0.9) 0%, rgba(255, 110, 199, 0.75) 45%, rgba(168, 85, 247, 0.6) 80%, rgba(56, 189, 248, 0.4) 100%);
+            box-shadow:
+                inset 0 0 25px rgba(255, 255, 255, 0.8),
+                0 0 35px rgba(255, 110, 199, 0.55),
+                0 0 60px rgba(255, 209, 102, 0.35);
+        }
+
+        .cake-tier.formed {
+            opacity: 0.95;
+            filter: blur(0px) brightness(1.2);
+            transform: scale(1) translateY(0);
+        }
+
+        /* Top Elliptical Cream Surface */
+        .tier-top-surface {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 26px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(254, 240, 138, 0.8) 70%, transparent 100%);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+            z-index: 3;
+        }
+
+        .icing-drips {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            width: 100%;
+            height: 24px;
+            z-index: 2;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 12px 6px, rgba(255, 255, 255, 0.9) 8px, transparent 9px),
+                radial-gradient(circle at 32px 10px, rgba(255, 110, 199, 0.8) 7px, transparent 8px),
+                radial-gradient(circle at 52px 6px, rgba(254, 240, 138, 0.9) 9px, transparent 10px);
+            background-size: 64px 24px;
+            background-repeat: repeat-x;
+            filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.8));
+        }
+
+        .piped-pearl-border {
+            position: absolute;
+            bottom: 4px;
+            left: 6px;
+            right: 6px;
+            height: 11px;
+            border-radius: 50%;
+            background-image: radial-gradient(circle at 7px 5px, #ffffff 3.5px, #ffd166 6px, transparent 7px);
+            background-size: 14px 11px;
+            background-repeat: repeat-x;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+            z-index: 4;
+        }
+
+        .sugar-decorations {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 4;
+        }
+
+        .sugar-rosette {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #ff6ec7 60%, transparent 100%);
+            box-shadow: 0 0 10px rgba(255, 110, 199, 0.9);
+        }
+
+        .gold-dragee {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #ffd166 60%, transparent 100%);
+            box-shadow: 0 0 8px rgba(255, 209, 102, 0.9);
+        }
+
+        .tier-top {
+            width: 170px;
+            height: 70px;
+            z-index: 10;
+        }
+
+        .tier-middle {
+            width: 250px;
+            height: 80px;
+            margin-top: -10px;
+            z-index: 8;
+        }
+
+        .tier-bottom {
+            width: 330px;
+            height: 90px;
+            margin-top: -10px;
+            z-index: 6;
+        }
+
+        /* Golden Pedestal Stand */
+        .cake-stand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -8px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.85);
+            transition: opacity 1.4s ease-out, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 4;
+        }
+
+        .cake-stand.formed {
+            opacity: 0.9;
+            transform: translateY(0) scale(1);
+        }
+
+        .stand-platter {
+            width: 380px;
+            height: 18px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 209, 102, 0.8) 50%, rgba(168, 85, 247, 0.5) 100%);
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.7);
+        }
+
+        .stand-pedestal {
+            width: 90px;
+            height: 20px;
+            margin-top: -4px;
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.6), rgba(255, 209, 102, 0.9), rgba(168, 85, 247, 0.6));
+            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+            filter: drop-shadow(0 0 10px rgba(255, 209, 102, 0.6));
+        }
+
+        .stand-base {
+            width: 160px;
+            height: 12px;
+            margin-top: -2px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.9), rgba(255, 110, 199, 0.7), transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 110, 199, 0.6);
+        }
+
+        /* Golden Cake Topper: Decorative Arch Gate with Twin Pillars & Stars */
+        .cake-topper-gate {
+            position: relative;
+            width: 164px;
+            margin-bottom: -44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-18px) scale(0.82);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 14;
+            pointer-events: none;
+        }
+
+        .cake-topper-gate.appear {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .gate-arch-banner {
+            position: relative;
+            width: 100%;
+            padding: 8px 12px 10px;
+            border-radius: 34px 34px 10px 10px;
+            border: 2px solid #ffd166;
+            border-bottom: 1.5px solid rgba(255, 209, 102, 0.55);
+            background: linear-gradient(180deg, rgba(255, 214, 102, 0.22) 0%, rgba(255, 110, 199, 0.14) 100%);
+            box-shadow:
+                0 0 16px rgba(255, 209, 102, 0.75),
+                inset 0 0 12px rgba(255, 240, 138, 0.45);
+            text-align: center;
+        }
+
+        /* Crown Star at the Peak of the Gate */
+        .gate-crown-star {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            line-height: 1;
+            color: #fffbeb;
+            text-shadow:
+                0 0 8px #ffd166,
+                0 0 18px #f59e0b;
+            animation: starTwinkle 1.8s ease-in-out infinite alternate;
+        }
+
+        .gate-title-main {
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 900;
+            font-size: 0.92rem;
+            letter-spacing: 0.06em;
+            color: #fef08a;
+            line-height: 1.15;
+            text-shadow:
+                0 0 8px rgba(255, 209, 102, 0.95),
+                0 0 16px rgba(245, 158, 11, 0.85);
+        }
+
+        .gate-title-name {
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 900;
+            font-size: 1.28rem;
+            letter-spacing: 0.12em;
+            color: #ffffff;
+            margin-top: 2px;
+            text-shadow:
+                0 0 10px #ffd166,
+                0 0 22px #ff6ec7;
+        }
+
+        /* Twin Gate Pillars Rising from Both Sides of the Cake */
+        .gate-pillars-row {
+            width: 146px;
+            height: 46px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .gate-pillar {
+            position: relative;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #ffd166 0%, #fef08a 55%, #f59e0b 100%);
+            box-shadow:
+                0 0 8px rgba(255, 209, 102, 0.95),
+                0 0 16px rgba(245, 158, 11, 0.7);
+            border-radius: 2px;
+        }
+
+        /* Star Finials Perched on Both Side Pillars */
+        .gate-pillar::before {
+            content: '✦';
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #fffbeb;
+            text-shadow:
+                0 0 8px #ffd166,
+                0 0 16px #ff6ec7;
+            animation: starTwinkle 1.6s ease-in-out infinite alternate;
+        }
+
+        .gate-pillar.right::before {
+            animation-delay: -0.8s;
+        }
+
+        @keyframes starTwinkle {
+            0% { transform: translateX(-50%) scale(0.9) rotate(-8deg); opacity: 0.85; }
+            100% { transform: translateX(-50%) scale(1.18) rotate(8deg); opacity: 1; }
+        }
+
+        /* Top-Left Romantic Cursive Caption above the cake */
+        .top-left-love {
+            position: fixed;
+            top: clamp(20px, 4.5vh, 42px);
+            left: clamp(22px, 4.5vw, 48px);
+            font-family: 'Great Vibes', cursive;
+            font-weight: 400;
+            font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+            letter-spacing: 0.04em;
+            color: #ffd166;
+            text-shadow:
+                0 0 10px rgba(255, 209, 102, 0.95),
+                0 0 22px rgba(245, 158, 11, 0.8),
+                0 0 36px rgba(255, 110, 199, 0.65);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .top-left-love.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bottom-right Signature: "Tanvir Sir" */
+        .tanvir-signature {
+            position: fixed;
+            bottom: 66px;
+            right: 22px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 700;
+            font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+            letter-spacing: 0.1em;
+            color: #ffd166;
+            text-shadow:
+                0 0 8px rgba(255, 209, 102, 0.85),
+                0 0 18px rgba(255, 110, 199, 0.55);
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0.92;
+        }
+
+        /* Replay Button */
+        #replay-btn {
+            position: fixed;
+            bottom: 18px;
+            right: 20px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 214, 102, 0.45);
+            background: rgba(30, 14, 54, 0.68);
+            backdrop-filter: blur(8px);
+            color: #ffe8f7;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            z-index: 25;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+        }
+
+        #replay-btn.visible {
+            opacity: 0.9;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        #replay-btn:hover {
+            opacity: 1;
+            background: rgba(255, 77, 166, 0.32);
+            border-color: #ffd166;
+            box-shadow: 0 0 18px rgba(255, 209, 102, 0.55);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Mobile Scaling */
+        @media (max-width: 520px) {
+            .cake-assembly {
+                transform: scale(0.75);
+            }
+            .candles-row {
+                gap: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Magical Golden, Pink & Blue Lighting Auras -->
+    <div class="ambient-aura aura-pink" aria-hidden="true"></div>
+    <div class="ambient-aura aura-gold" aria-hidden="true"></div>
+    <div class="ambient-aura aura-blue" aria-hidden="true"></div>
+
+    <!-- Top-Left Romantic Caption Above Cake -->
+    <div class="top-left-love" id="top-left-love">I love you so much</div>
+
+    <!-- Falling "HAPPY BIRTHDAY TO YOU" Sky Text Layer Across Full Screen -->
+    <div id="falling-sky-text" aria-hidden="true"></div>
+
+    <!-- Fullscreen Canvas for Falling Stars & Golden Sparkles -->
+    <canvas id="magic-canvas" aria-hidden="true"></canvas>
+
+    <!-- Main Birthday Stage (Centered) -->
+    <main class="stage">
+        <!-- Realistic Three-Tier Cake Formed Smoothly from Bottom to Top -->
+        <section class="cake-assembly" aria-label="Three-tier decorated birthday cake with three lit candles">
+            <!-- Warm Candlelight Halo -->
+            <div class="candlelight-halo" id="candle-halo"></div>
+
+            <!-- Golden Arch Gate Topper Rising From Both Sides Over Candles -->
+            <div class="cake-topper-gate" id="cake-topper">
+                <div class="gate-arch-banner">
+                    <span class="gate-crown-star">★</span>
+                    <div class="gate-title-main">Happy Birthday</div>
+                    <div class="gate-title-name">Pakhi</div>
+                </div>
+                <div class="gate-pillars-row">
+                    <div class="gate-pillar left"></div>
+                    <div class="gate-pillar right"></div>
+                </div>
+            </div>
+
+            <!-- Three Candles on Top -->
+            <div class="candles-row">
+                <div class="candle candle-1" id="candle-1">
+                    <div class="wick"></div>
+                    <div class="flame-wrapper" id="flame-1">
+                        <div class="flame-outer">
+                            <div class="flame-blue-base"></div>
+                            <div class="flame-inner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="candle candle-2" id="candle-2">
+                    <div class="wick"></div>
+                    <div class="flame-wrapper" id="flame-2">
+                        <div class="flame-outer">
+                            <div class="flame-blue-base"></div>
+                            <div class="flame-inner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="candle candle-3" id="candle-3">
+                    <div class="wick"></div>
+                    <div class="flame-wrapper" id="flame-3">
+                        <div class="flame-outer">
+                            <div class="flame-blue-base"></div>
+                            <div class="flame-inner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Tier -->
+            <div class="cake-tier tier-top" id="tier-top">
+                <div class="tier-top-surface"></div>
+                <div class="icing-drips"></div>
+                <div class="sugar-decorations">
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                </div>
+                <div class="piped-pearl-border"></div>
+            </div>
+
+            <!-- Middle Tier -->
+            <div class="cake-tier tier-middle" id="tier-middle">
+                <div class="tier-top-surface"></div>
+                <div class="icing-drips"></div>
+                <div class="sugar-decorations">
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                </div>
+                <div class="piped-pearl-border"></div>
+            </div>
+
+            <!-- Bottom Tier -->
+            <div class="cake-tier tier-bottom" id="tier-bottom">
+                <div class="tier-top-surface"></div>
+                <div class="icing-drips"></div>
+                <div class="sugar-decorations">
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                    <span class="sugar-rosette"></span>
+                    <span class="gold-dragee"></span>
+                </div>
+                <div class="piped-pearl-border"></div>
+            </div>
+
+            <!-- Golden Pedestal Stand -->
+            <div class="cake-stand" id="cake-stand">
+                <div class="stand-platter"></div>
+                <div class="stand-pedestal"></div>
+                <div class="stand-base"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom-Right Signature -->
+    <div class="tanvir-signature">Tanvir Sir</div>
+
+    <!-- Replay Button -->
+    <button id="replay-btn" aria-label="Replay Animation">✨ Replay Magic</button>
+
+    <script>
+        (function () {
+            const canvas = document.getElementById('magic-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            let magicSparkles = [];
+            let skyParticles = [];
+
+            class SkyParticle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = -10;
+                    this.vy = 0.4 + Math.random() * 0.9;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.size = 1 + Math.random() * 2;
+                    this.alpha = 0.2 + Math.random() * 0.6;
+                    this.color = Math.random() > 0.4 ? '#ffffff' : '#ffd166';
+                }
+                update() {
+                    this.y += this.vy;
+                    this.x += this.vx;
+                    if (this.y > height + 10) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 5;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function spawnMagicDust(x, y, color, count = 4) {
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 0.5 + Math.random() * 2;
+                    magicSparkles.push({
+                        x,
+                        y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 0.3,
+                        size: 1.5 + Math.random() * 2.5,
+                        color,
+                        life: 1,
+                        decay: 0.02 + Math.random() * 0.015
+                    });
+                }
+            }
+
+            /* =========================================================
+               CHOREOGRAPHED CAKE FORMATION SEQUENCE
+               ========================================================= */
+            const cakeStand = document.getElementById('cake-stand');
+            const tierBottom = document.getElementById('tier-bottom');
+            const tierMiddle = document.getElementById('tier-middle');
+            const tierTop = document.getElementById('tier-top');
+            const cakeTopper = document.getElementById('cake-topper');
+            const topLeftLove = document.getElementById('top-left-love');
+            const candles = [
+                document.getElementById('candle-1'),
+                document.getElementById('candle-2'),
+                document.getElementById('candle-3')
+            ];
+            const flames = [
+                document.getElementById('flame-1'),
+                document.getElementById('flame-2'),
+                document.getElementById('flame-3')
+            ];
+            const candleHalo = document.getElementById('candle-halo');
+            const replayBtn = document.getElementById('replay-btn');
+
+            let sequenceTimers = [];
+
+            function clearSequenceTimers() {
+                sequenceTimers.forEach(id => clearTimeout(id));
+                sequenceTimers = [];
+            }
+
+            function startCakeSequence() {
+                clearSequenceTimers();
+                magicSparkles = [];
+
+                cakeStand.classList.remove('formed');
+                tierBottom.classList.remove('formed');
+                tierMiddle.classList.remove('formed');
+                tierTop.classList.remove('formed');
+                cakeTopper.classList.remove('appear');
+                topLeftLove.classList.remove('visible');
+                candleHalo.classList.remove('lit');
+                replayBtn.classList.remove('visible');
+
+                candles.forEach(c => c.classList.remove('appear'));
+                flames.forEach(f => f.classList.remove('ignited'));
+
+                const stages = [
+                    { target: cakeStand, delay: 600 },
+                    { target: tierBottom, delay: 1400 },
+                    { target: tierMiddle, delay: 2200 },
+                    { target: tierTop, delay: 3000 }
+                ];
+
+                stages.forEach(st => {
+                    sequenceTimers.push(setTimeout(() => {
+                        st.target.classList.add('formed');
+                        const rect = st.target.getBoundingClientRect();
+                        spawnMagicDust(rect.left + rect.width / 2, rect.top + rect.height / 2, '#ffd166', 25);
+                    }, st.delay));
+                });
+
+                candles.forEach((candle, idx) => {
+                    sequenceTimers.push(setTimeout(() => {
+                        candle.classList.add('appear');
+                        const rect = candle.getBoundingClientRect();
+                        spawnMagicDust(rect.left + rect.width / 2, rect.top + 10, '#ffd166', 12);
+                    }, 3800 + idx * 250));
+                });
+
+                flames.forEach((flame, idx) => {
+                    sequenceTimers.push(setTimeout(() => {
+                        flame.classList.add('ignited');
+                        const rect = candles[idx].getBoundingClientRect();
+                        spawnMagicDust(rect.left + rect.width / 2, rect.top - 18, '#fef08a', 18);
+                        if (idx === 0) {
+                            candleHalo.classList.add('lit');
+                            cakeTopper.classList.add('appear');
+                            topLeftLove.classList.add('visible');
+                        }
+                    }, 4600 + idx * 350));
+                });
+
+                sequenceTimers.push(setTimeout(() => {
+                    replayBtn.classList.add('visible');
+                }, 5800));
+            }
+
+            /* =========================================================
+               MAIN ANIMATION LOOP
+               ========================================================= */
+            let lastTime = performance.now();
+            function animate(now) {
+                const dt = Math.min(0.05, (now - lastTime) / 1000);
+                lastTime = now;
+
+                ctx.clearRect(0, 0, width, height);
+
+                for (const star of skyParticles) {
+                    star.update();
+                    star.draw();
+                }
+
+                for (let i = magicSparkles.length - 1; i >= 0; i--) {
+                    const p = magicSparkles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.02;
+                    p.life -= p.decay;
+
+                    if (p.life <= 0) {
+                        magicSparkles.splice(i, 1);
+                        continue;
+                    }
+
+                    ctx.save();
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = p.color;
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            replayBtn.addEventListener('click', startCakeSequence);
+
+            window.addEventListener('load', () => {
+                skyParticles = [];
+                const starCount = window.innerWidth < 600 ? 25 : 45;
+                for (let i = 0; i < starCount; i++) {
+                    const sp = new SkyParticle();
+                    sp.y = Math.random() * height;
+                    skyParticles.push(sp);
+                }
+
+                /* Create smooth, relaxed falling text rain */
+                function createTinyTextRain() {
+                    const skyContainer = document.getElementById('falling-sky-text');
+                    if (!skyContainer) return;
+                    skyContainer.innerHTML = '';
+
+                    const phrases = ["Happy Birthday to You", "Happy Birthday", "Love You", "Best Wishes", "Stay Happy"];
+                    const count = window.innerWidth < 600 ? 18 : 30;
+
+                    for (let i = 0; i < count; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'tiny-text-particle';
+                        particle.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+
+                        const fontSize = 15 + Math.random() * 7;
+                        const opacity = 0.5 + Math.random() * 0.35;
+                        const duration = 15 + Math.random() * 10;
+                        const leftPos = Math.random() * 95;
+                        const driftX = (Math.random() - 0.5) * 40;
+                        const rotStart = (Math.random() - 0.5) * 8;
+                        const rotEnd = rotStart + (Math.random() - 0.5) * 8;
+                        const delay = -Math.random() * duration;
+
+                        const colors = ['#ffd166', '#ff6ec7', '#c084fc', '#60a5fa', '#ffffff'];
+                        const glows = ['rgba(255,209,102,0.7)', 'rgba(255,110,199,0.7)', 'rgba(192,132,252,0.7)', 'rgba(96,165,250,0.7)', 'rgba(255,255,255,0.8)'];
+                        
+                        particle.style.left = `${leftPos.toFixed(1)}vw`;
+                        particle.style.fontSize = `${fontSize.toFixed(1)}px`;
+                        particle.style.setProperty('--t-color', colors[i % colors.length]);
+                        particle.style.setProperty('--t-glow', glows[i % glows.length]);
+                        particle.style.setProperty('--t-opacity', opacity.toFixed(2));
+                        particle.style.setProperty('--drift-x', `${driftX.toFixed(1)}px`);
+                        particle.style.setProperty('--rot-start', `${rotStart.toFixed(1)}deg`);
+                        particle.style.setProperty('--rot-end', `${rotEnd.toFixed(1)}deg`);
+                        particle.style.animationDuration = `${duration.toFixed(2)}s`;
+                        particle.style.animationDelay = `${delay.toFixed(2)}s`;
+
+                        skyContainer.appendChild(particle);
+                    }
+                }
+
+                createTinyTextRain();
+
+                lastTime = performance.now();
+                requestAnimationFrame(animate);
+                startCakeSequence();
+            });
+        })();
+    </script>
+</body>
+</html>
